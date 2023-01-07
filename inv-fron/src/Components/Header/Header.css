@@ -1,0 +1,9 @@
+.headerTitle{
+    cursor: pointer;
+}
+
+.header_serach{
+    display: flex;
+    justify-content: end;
+    margin-left: 230px;
+}

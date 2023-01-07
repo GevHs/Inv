@@ -1,0 +1,22 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+
+}
+
+a{
+  text-decoration: none;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+img{
+  object-fit: cover;
+  object-position: center;
+}
+
+.btn{
+  font-weight: 600;
+}
