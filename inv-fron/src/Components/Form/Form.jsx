@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
-
 export default function Form(props) {
   return (
     <div className="form container mt-2 ">

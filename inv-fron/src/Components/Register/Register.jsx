@@ -30,21 +30,30 @@ export default function Register() {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [addInfo, setInfo] = useState();
+ 
+  console.log(addInfo)
+
+  const handelCahnge = (e) => {
+    const {name , value }= e.target;
+    setInfo((item) => {
+      return { ...item, [name]: value };
+    });
+  };
+
+
+
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
     setValidName(result);
   }, [user]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -64,14 +73,11 @@ export default function Register() {
     }
 
     try{
-      const response = await axios.post(REGISTER_URL,JSON.stringify({user,pwd}),{
-        headers: {'Content-type' :'application/json'},
-        withCredentials: true
-      })
-
-      console.log(response.data)
-      console.log(response.accessToken)
-      console.log(JSON.stringify(response))
+      fetch('http://localhost:5000/registr', {
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(addInfo),
+        method: 'POST'
+      }).then((data) =>console.log(data))
       setSuccess(true)
       // clear input fields
     }catch(err){
@@ -95,7 +101,7 @@ export default function Register() {
            <p> <a href='#'>Sigin In</a> </p>
         </section>
       ) : (
-        <section>
+        <section className="container register-block">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -113,16 +119,19 @@ export default function Register() {
               <FontAwesomeIcon icon={faTimes} />
             </span>
             <input
-              type={"text"}
+              type={"email"}
               id="username"
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
+              onInput={handelCahnge}
               required
               aria-invalid={validName ? "false" : "true"}
               aria-describedby="uidnote"
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
+              className="form-control input_register"
+              name="email"
             />
             <p
               id="uidnote"
@@ -156,14 +165,18 @@ export default function Register() {
               aria-describedby="pwdnote"
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
+              className="form-control input_register"
+              onInput={handelCahnge}
+              name="password"
+
             />
             <p
               id="pwdnote"
               className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
             >
-              <FontAwesomeIcon icon={faInfoCircle} /> <br />
+              <FontAwesomeIcon icon={faInfoCircle} />  <br />
               8 to 24 characters <br />
-              must include uppercase and lowercase Letters, a number and a
+               must include uppercase and lowercase Letters, a number and a
               special characters <br />
               Allowed special characters :{" "}
               <span aria-label="exclamention mark">!</span>
@@ -177,6 +190,7 @@ export default function Register() {
             <label htmlFor="password">
               Confirm Password:
               <span className={validMatch && !matchPwd ? "valid" : "hide"}>
+                
                 <FontAwesomeIcon icon={faCheck} />
               </span>
               <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
@@ -192,6 +206,9 @@ export default function Register() {
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
+              className="form-control input_register"
+              name="passwordTWo"
+
             />
             <p
               id="confirmnote"
@@ -205,13 +222,14 @@ export default function Register() {
             <br />
             <button
               disabled={!validName || !validPwd || !validMatch ? true : false}
+              onClick={handelSubmit}
             >
               Sign Up
             </button>
 
             <p>
-              Already Registered ? <br />
-              <span className="line">
+              <span style={{marginTop:'40px'}}> Already Registered ?</span> <br />
+              <span className="line mb-5">
                 <a href="#">Sigin in</a>
               </span>
             </p>

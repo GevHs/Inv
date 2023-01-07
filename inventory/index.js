@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json())
 
-const url = "mongodb://newmyapp:cj9ba7XODAjIPQbEvcgL1ldSMtV7PBjY2ZIxRDKn61FttT5C52FoOHukR4LqUa669QlWOo4uzM9QACDbtppkFQ==@newmyapp.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@newmyapp@";
+// const url = "mongodb://newmyapp:cj9ba7XODAjIPQbEvcgL1ldSMtV7PBjY2ZIxRDKn61FttT5C52FoOHukR4LqUa669QlWOo4uzM9QACDbtppkFQ==@newmyapp.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@newmyapp@";
+ const url = 'mongodb://newmyapp:SJbKvD6NXmDnbuAmut9wLx16yU9ln30pBp9JyPCcXXYNm9u4yZRSrXzYOH8hqpT8DiHYlMhZ4QcBACDbkcE9Gg==@bae39705-0ee0-4-231-b9ee.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@bae39705-0ee0-4-231-b9ee@';
 
 const client = new MongoClient(url);
 client.connect().then(() => { console.log('Db connected') });
@@ -48,6 +50,20 @@ app.post('/item/:type', async (req, res) => {
         'remark': req.body.remark,
         'amount':req.body.amount
     }};
+    const options = {upsert: true, new: true};
+    const item = await collection.updateOne(query, update, options);
+    res.send(item);
+})
+
+
+app.post('/registr', async (req, res) => {
+    const collection = db.collection("users");
+    const query = { email: req.body.email};
+    const update = { $set: {
+        "email": req.body.email,
+        "password": req.body.password,
+    }};
+
     const options = {upsert: true, new: true};
     const item = await collection.updateOne(query, update, options);
     res.send(item);
@@ -118,7 +134,6 @@ app.get('/statistic', async (req, res) => {
     const totalCount2 = await collectionGames.count();
     const totalCount3 = await collectionGifts.count();
     const totalCount4 = await collectionMaterials.count();
-
     res.send({
         books: totalCount1,
         games: totalCount2,
@@ -130,7 +145,7 @@ app.get('/statistic', async (req, res) => {
 
 // Login 
 
-app.use(express.json())
+
 
 
 app.post('/auth/login' , (req,res) => { 
@@ -143,16 +158,11 @@ app.post('/auth/login' , (req,res) => {
      res.json({
          success: true,
          token,
-
      })
-    
-   
 })
 
 
-
-
-// Server
+// // Server
 app.get('/' , (req , res) => {
     res.send({
         name:  '111 Hello'
