@@ -18,21 +18,20 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
-       
-        <Routes>
-          <Route path="/*" element={<Login />} /> 
-          <Route path="/Games" element={<Game  />} />
+      <div className="App"> 
+        <Routes>   
+          {/* <Route path="/Games" element={<Game  />} />
           <Route path="/Books" element={<Book />} />
           <Route path="/materials" element={<Material />} />
           <Route path="/Gifts" element={<Gift />} />
           <Route path="/Gifts/FormAddAll" element={<FormAddAll  name='gifts'  />} />
           <Route path="/Books/FormAdd" element={<FormAdd/>} />
           <Route path="/Games/FormAddAll" element={<FormAddAll  name='games'  />} />
-          <Route path="/materials/FormAddAll" element={<FormAddAll name='materials' />} />
+          <Route path="/materials/FormAddAll" element={<FormAddAll name='materials' />} /> */}
           <Route path="/Register" element={< Register />} />
-
         </Routes>
+        <Login />
+
       </div>
     </BrowserRouter>
   );

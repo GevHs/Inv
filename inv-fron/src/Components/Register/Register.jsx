@@ -73,7 +73,7 @@ export default function Register() {
     }
 
     try{
-      fetch('http://localhost:5000/registr', {
+      fetch('http://localhost:4444/registr', {
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(addInfo),
         method: 'POST'

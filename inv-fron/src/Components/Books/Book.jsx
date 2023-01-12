@@ -14,7 +14,6 @@ export default function Book() {
 
 
  const [value , setValue] = useState('')
-
  const filteredCountres = posts.filter(post => {
      return post.title.toLowerCase().includes(value.toLowerCase())
   })
@@ -47,6 +46,5 @@ export default function Book() {
     </div>
     </div>
     </React.Fragment>
-
   );
 }
