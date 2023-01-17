@@ -5,10 +5,11 @@ import App from './App';
 import {AuthProvaider} from "./Components/AuthProvaider/AuthProvider";
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvaider>
+    <AuthProvaider >
       <App />
     </AuthProvaider>
   </React.StrictMode>

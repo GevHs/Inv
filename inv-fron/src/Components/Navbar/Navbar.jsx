@@ -5,7 +5,7 @@ import { Outlet, Link } from "react-router-dom";
   return (
     <div className='d-flex col-6   d-flex justify-content-around align-items-center'> 
         { links.map((value, index) => {
-          return  <li key={index}> <Link to={value}>{value}</Link> </li>}
+          return  <li key={index}> <Link to={`/${value}`}>{value}</Link> </li>}
             )}            
     </div>
   )

@@ -8,11 +8,11 @@ export default function Game() {
   const [result, resultPost] = useState([]);
 
 
-  useEffect(() => {
-    fetch("http://localhost:5000/item/games")
-      .then((data) => data.json())
-      .then((result) => resultPost(result.items));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/item/games")
+  //     .then((data) => data.json())
+  //     .then((result) => resultPost(result.items));
+  // }, []);
 
   const [value , setValue] = useState('')
   const filteredCountres = result.filter(post => {

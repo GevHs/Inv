@@ -9,9 +9,9 @@ export default function Header({setValue}) {
       <div className="d-flex col-10">
         <div className="d-flex  col-8">
           <div className="me-5">
-             <Link  to={'Home'}><h2 className="headerTitle text-black">Inventory</h2></Link>
+             <Link  to={'/gitHome'}><h2 className="headerTitle text-black">Inventory</h2></Link>
           </div>
-          <Navbar links={["Books", "Games", "Gifts", "Materials"]} />
+          <Navbar links={[ "Books", "Games", "Gifts", "Materials"]} />
         </div>
         <div className="header_serach col-3  col-4">
           <input

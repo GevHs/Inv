@@ -1,8 +1,11 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../Header/Header";
 export default function MaterialForm(props) {
   return (
+    <>
+    <Header />
     <div className="form container mt-2 ">
         <div className="bg-secondary  col-12 rounded text-white container p-3 d-flex justify-content-between ">
           <div className="d-flex">
@@ -18,6 +21,7 @@ export default function MaterialForm(props) {
           </div>
         </div>  
       </div>
+      </>
   )
 }
 

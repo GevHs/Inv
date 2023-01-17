@@ -5,10 +5,7 @@ import AuthContext from '../AuthProvaider/AuthProvider';
 
 
 export default function Home() {
-
   const {auth} = useContext(AuthContext)
-
- 
   console.log('Auth User' , auth)
   return (
    <React.Fragment>

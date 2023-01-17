@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect , useContext } from 'react'
 import LoginHeader from '../Header/LoginHeader';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../AuthProvaider/AuthProvider';
-import axios from '../../Api/axios';
+
 import Header from '../Header/Header';
 import Home from '../Home/Home';
-
+import axios from '../../Api/axios';
 const LOGIN_URL = '/auth/login'
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
   const [headerVal , setheaderVal] = useState(true)
   const [user, setUser] = useState('')
   const [pwd, setPwd] = useState('')
-  const [errMsg, setErrMsg] = useState('hello')
+  const [errMsg, setErrMsg] = useState('Loading...')
   const [success, setSuccess] = useState(false)
 
 
@@ -30,49 +30,58 @@ export default function Login() {
      setErrMsg('')
   }, [user , pwd])
 
-
- 
-  
  const handelSubmit = async (e) => {
     e.preventDefault()
     try{
-      fetch('http://localhost:4444/auth/login', {
+ await fetch('http://localhost:4444/auth/login', {
         headers: {'Content-Type':'application/json'},
         withCredentials: true ,
         body: JSON.stringify({email: user , password: pwd}),
         method: 'POST'
-      }).then(response =>response.json())
+      }).then(response => {
+          console.log(response)
+          if(response.status === 200) {
+            return  response.json() 
+          }else{
+             throw('error')
+          }
+       })
+      .catch((err) => {
+        console.log(err , "My error")
+     })
       .then(result => {
+        console.log(result)
          localStorage.setItem('accsessToken' ,  result.token)
          setAuth({fullName : result.fullName , email: result.email})
+         setUser('')
+         setPwd('')
+         setAuth({email: user , password: pwd})
+         setSuccess(true)
+         setheaderVal(false)
       })
-      
-      setUser('')
-      setPwd('')
-      setSuccess(true)
-      setheaderVal(false)
-    }catch(err){
+   
+
+  
+    }catch(err){  
+
+      console.log(err)
           if(!err?.response){
              setErrMsg('No Server Response')
-          }else if(err.response?.status === 409){
-            setErrMsg('Username Taken') 
-         }else{
+          }else if(err.response?.status === 400){
+            setErrMsg('Missing Username or password') 
+          }else if(err.response?.status === 401){
+          setErrMsg('Unautorized') 
+          }else{
             setErrMsg('Registration Failed')
-         }
+          }
     }
-  
  }
 
   return (
-  
     <div className='container'>
        {
          headerVal ?  <LoginHeader /> : ''
        }
-     
-      { success ? (<section>
-         <Home />
-      </section>) : (
        <section>
          <p ref={errRef} className= {errMsg ? "errmsg" : "offsreen"} 
          aria-live="assertive">{errMsg}</p>
@@ -90,7 +99,6 @@ export default function Login() {
               aria-describedby="emailHelp" />
              <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
            </div>
-   
            <div className="mb-3">
              <label htmlFor="password" className="form-label">Password</label>
              <input  name='password' type="password" 
@@ -109,7 +117,7 @@ export default function Login() {
            </span>
          </form>
          </section> 
-      ) }
+
     </div>
 
 
