@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect , useContext } from 'react'
+import { Link } from "react-router-dom";
 import LoginHeader from '../Header/LoginHeader';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../AuthProvaider/AuthProvider';
@@ -110,11 +111,8 @@ export default function Login() {
               required
              />
            </div>
-           <button  type="submit" className="btn btn-primary">Sigin In</button>
-           <span className='line'>
-             Need an Account? <br />
-             <a href="#">Sigin Up</a>
-           </span>
+           <button  type="submit" className="btn btn-primary"><Link  to="/Home"> <span style={{color: "white"}}>Sigin In</span> </Link> </button>
+      
          </form>
          </section> 
 

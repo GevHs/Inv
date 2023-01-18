@@ -11,7 +11,7 @@ export default function LoginHeader() {
         </div>
       </div>
       <div className="header_serach col-3  col-4">
-      <Link to='./Register'>
+      <Link to='/Register'>
         <button type="button" className="btn btn-success ms-3 ">
           Register
         </button>

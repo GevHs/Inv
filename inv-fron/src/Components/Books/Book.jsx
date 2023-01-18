@@ -6,11 +6,14 @@ import Header from "../Header/Header";
 export default function Book() {
   const [posts , setPosts] = useState([])
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/item/books")
-  //   .then(response =>response.json())
-  //   .then(result => setPosts(result.items))
-  // },[]);
+  useEffect(() => {
+    fetch("http://localhost:4444/posts")
+    .then(response =>response.json())
+    .then(result => setPosts(result.items))
+  },[]);
+
+
+  console.log(posts)
 
 
  const [value , setValue] = useState('')

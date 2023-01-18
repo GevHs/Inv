@@ -1,4 +1,5 @@
 import React , {useState}from "react";
+import Header from "../Header/Header";
 import Form from "./Form";
 export default function FormAddAll(props) {
   const [addInfoTwo, setInfoTwo] = useState({});
@@ -20,6 +21,7 @@ export default function FormAddAll(props) {
   };
   return (
     <div className="container">
+      <Header />
       <Form value='Books' linkName = 'Books Detalie'/>
       <div className="row mt-3">
         <div className="col">

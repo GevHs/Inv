@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "../Header/Header";
 import Form from "./Form";
 
 export default function FormAdd() {
@@ -24,6 +25,7 @@ export default function FormAdd() {
 
   return (
     <React.Fragment>
+       <Header />
       <Form  value='Books' linkName = 'Books Detalie' />
       <form>
         <div
