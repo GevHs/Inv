@@ -9,14 +9,17 @@ export default function Book() {
   useEffect(() => {
     fetch("http://localhost:4444/posts")
     .then(response =>response.json())
-    .then(result => setPosts(result.items))
+    .then(result => setPosts(result))
   },[]);
+
 
 
   console.log(posts)
 
 
+
  const [value , setValue] = useState('')
+ 
  const filteredCountres = posts.filter(post => {
      return post.title.toLowerCase().includes(value.toLowerCase())
   })
@@ -39,7 +42,7 @@ export default function Book() {
         />
         <div className="text-dark p-3">
           <h2 >{item.title}</h2>
-          <p>
+          <p>   
             {item.description}
           </p>
           <p>{item.Year}</p>

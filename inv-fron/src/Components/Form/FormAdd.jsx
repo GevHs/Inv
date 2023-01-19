@@ -6,7 +6,7 @@ import Form from "./Form";
 export default function FormAdd() {
   const [addInfo, setInfo] = useState({});
 
-  // console.log(addInfo)
+  console.log(addInfo)
 
   const handelCahnge = (e) => {
     const {name , value }= e.target;
@@ -16,11 +16,25 @@ export default function FormAdd() {
   };
 
   const handelSubmit = () => {
-      fetch('http://localhost:5000/item/books', {
-        headers: {'Content-Type':'application/json'},
+      fetch('http://localhost:4444/posts', {
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${localStorage.getItem('accsessToken')}`
+        },
         body: JSON.stringify(addInfo),
         method: 'POST'
-      }).then((data) =>console.log(data))
+      }).then(response => {
+        console.log(response)
+        if(response.status === 200) {
+          return  response.json() 
+        }else{
+           throw('error')
+        }
+     })
+    .catch((err) => {
+      console.log(err , "My error")
+     })
+     
   };
 
   return (
@@ -98,7 +112,7 @@ export default function FormAdd() {
             </label>
             <input
               type="text"
-              name="Year"
+              name="year"
               className="form-control ms-1"
               id="formGroupExampleInput"
               style={{ width: "99%" }}
